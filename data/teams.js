@@ -3,7 +3,7 @@ export const teams = {
     id: 'team1',
     name: '🔴 Red Team',
     color: '#EF4444',
-    members: ['Blue', 'Patrick', 'Gohan', 'Change', 'S1ND1'],
+    members: ["Annex", "Ammar", "Brody2633", "Paul goldschmidt", "Indigofire"],
     path: [
       { fort: 'S1', order: 1 },
       { fort: 'S9', order: 2 },
@@ -24,7 +24,7 @@ export const teams = {
     id: 'team2',
     name: '🔵 Blue Team',
     color: '#3B82F6',
-    members: ['Success', 'lord', 'dita', 'bade', '我是莊CC'],
+    members: ["RawB", "Loco Lewis", "Kitty", "Dorina"],
     path: [
       { fort: 'S1', order: 1 },
       { fort: 'S9', order: 2 },
@@ -47,7 +47,7 @@ export const teams = {
     id: 'team3',
     name: '💚 Green Team',
     color: '#10B981',
-    members: ['Gunner', 'Miss alex', 'Solitaire', 'Budimanjojo', '我是莊兮兮'],
+    members: ["Sammig", "K__", "Cellat1", "Kasabali", "IceKweem"],
     path: [
       { fort: 'S1', order: 1 },
       { fort: 'S9', order: 2 },
@@ -68,7 +68,7 @@ export const teams = {
     id: 'team4',
     name: '⭐ Yellow Team',
     color: '#F59E0B',
-    members: ['Alexis', 'Lollipop', 'Menal djingo', 'Alice', 'Noahh'],
+    members: ["Bart", "Panther", "elenanik", "Jolie",  "Donnerfisch"],
     path: [
         { fort: 'S1', order: 1 },
         { fort: 'S3', order: 2 },
@@ -83,7 +83,7 @@ export const teams = {
     id: 'team5',
     name: '💜 Purple Team',
     color: '#8B5CF6',
-    members: ['45dm', 'jahbless', 'farmsheep', 'tang', "無盡冰域"],
+    members: ["Goo7", "Plem", "Abo Hatem 90", "Dashit", "Bandit"],
     path: [
          { fort: 'S1', order: 1 },
         { fort: 'S4', order: 2 },
@@ -96,7 +96,7 @@ export const teams = {
     id: 'team6',
     name: '💗 Pink Team',
     color: '#EC4899',
-    members: ['Uncle plesaaa', 'Melody', 'Lordgoatmilker', 'adib993', 'fathin 67'],
+    members: ["HeroicVariable", "Method", "Mardinli", "Vorin", 'Coorslightkiller'],
     path: [
         { fort: 'S1', order: 1 },
         { fort: 'S3', order: 2 },
