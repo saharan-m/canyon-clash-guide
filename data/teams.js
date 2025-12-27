@@ -1,7 +1,8 @@
 export const teams = {
   team1: {
     id: 'team1',
-    name: '🔴 Red Team',
+    name: 'Red Team',
+    icon: '⚔️',
     color: '#EF4444',
     members: ["4dm", "Melody", "Alexis (Second March)", "Coorslightkiller", "Gomu Gomu", "龜苓膏大盤商"],
     path: [
@@ -22,7 +23,8 @@ export const teams = {
   },
   team2: {
     id: 'team2',
-    name: '🔵 Blue Team',
+    name: 'Blue Team',
+    icon: '🛡️',
     color: '#3B82F6',
     members: ["Success", "Budimanjojo", "Fatin", "Tyga", "Nani"],
     path: [
@@ -45,7 +47,8 @@ export const teams = {
   },
   team3: {
     id: 'team3',
-    name: '💚 Green Team',
+    name: 'Green Team',
+    icon: '⚡',
     color: '#10B981',
     members: ["Gunner23", "Donnerfisch", "Vorin", "Adib", "Noahhh"],
     path: [
@@ -66,7 +69,8 @@ export const teams = {
   },
   team4: {
     id: 'team4',
-    name: '⭐ Yellow Team',
+    name: 'Yellow Team',
+    icon: '⭐',
     color: '#F59E0B',
     members: ["Alexis", "Tang", "Abu Hatem", "Putri badai"],
     path: [
@@ -77,11 +81,21 @@ export const teams = {
         { fort: 'S23', order: 5 },
         { fort: 'S27', order: 6 },
     ],
-    instructions: []
+    instructions: [
+      '🎯 Phase 1: Secure S1 with coordinated assault',
+      '⚔️ Push to S3 and establish forward position',
+      '🛡️ Capture S11 - key strategic point',
+      '🌉 Advance to S16 and secure bridge control',
+      '💥 Target S23 - high-value objective',
+      '👑 Push to S27 and prepare for Citadel',
+      '📍 Maintain supply lines between objectives',
+      '🔄 Coordinate with other teams for support'
+    ]
   },
   team5: {
     id: 'team5',
-    name: '💜 Purple Team',
+    name: 'Purple Team',
+    icon: '👑',
     color: '#8B5CF6',
     members: ["Blue", "Patrick", "y usb eye", "Farmsheep", "我是莊兮兮"],
     path: [
@@ -90,11 +104,21 @@ export const teams = {
         { fort: 'S12', order: 3 },
         { fort: 'S18', order: 4 },
     ],
-    instructions: []
+    instructions: [
+      '🎯 Phase 1: Secure S1 with full team',
+      '⚔️ Advance to S4 - establish foothold',
+      '🛡️ Capture S12 - critical junction point',
+      '🌉 Push to S18 and control bridge access',
+      '💥 Support central team advances',
+      '👑 Prepare for Citadel assault',
+      '📍 Keep reserves ready for counter-attacks',
+      '🔄 Maintain communication with adjacent teams'
+    ]
   },
   team6: {
     id: 'team6',
-    name: '💗 Pink Team',
+    name: 'Pink Team',
+    icon: '💎',
     color: '#EC4899',
     members: ["Uncle", "Gohan", "M_J", "Queenie", '我是莊CC'],
     path: [
@@ -104,6 +128,15 @@ export const teams = {
         { fort: 'S15', order: 4 },
         { fort: 'S26', order: 5 },
     ],
-    instructions: []
+    instructions: [
+      '🎯 Phase 1: Secure S1 with coordinated push',
+      '⚔️ Capture S3 - establish early advantage',
+      '🛡️ Take S10 - strategic control point',
+      '🌉 Advance to S15 and secure bridge',
+      '💥 Target S26 - high-value objective',
+      '👑 Support Citadel capture efforts',
+      '📍 Maintain defensive positions while advancing',
+      '🔄 Be ready to pivot based on battle flow'
+    ]
   }
 };
