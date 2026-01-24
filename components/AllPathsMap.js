@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import TeamIcon from './TeamIcon';
 
 export default function AllPathsMap({ teams, fortLocations }) {
   const [selectedTeam, setSelectedTeam] = useState(null);
@@ -9,10 +10,10 @@ export default function AllPathsMap({ teams, fortLocations }) {
   const activeteams = Object.values(teams).filter(team => team.path.length > 0);
 
   return (
-    <div className="relative bg-gray-900 rounded-lg p-4">
+    <div className="relative bg-slate-900 rounded-lg p-2 sm:p-3 md:p-4">
       {/* Map container with fixed aspect ratio */}
       <div className="relative w-full" style={{ paddingBottom: '66.67%' }}>
-        <div className="absolute inset-0 bg-gray-700 rounded-lg overflow-hidden border-2 border-gray-600">
+        <div className="absolute inset-0 bg-slate-700 rounded-lg overflow-hidden border border-slate-600 sm:border-2">
           {/* Map Image */}
           {!imageError && (
             <img
@@ -90,38 +91,53 @@ export default function AllPathsMap({ teams, fortLocations }) {
 
                   return (
                     <g key={idx}>
-                      {/* Glow line */}
+                      {/* Enhanced Glow line */}
                       <line
                         x1={currentFort.x}
                         y1={currentFort.y}
                         x2={nextFort.x}
                         y2={nextFort.y}
                         stroke={team.color}
-                        strokeWidth="10"
-                        opacity="0.15"
+                        strokeWidth="14"
+                        opacity="0.25"
                         filter={`url(#glow-${team.id})`}
                       />
                       
-                      {/* Main line with animation */}
+                      {/* Main animated line - More visible */}
                       <line
                         x1={currentFort.x}
                         y1={currentFort.y}
                         x2={nextFort.x}
                         y2={nextFort.y}
                         stroke={team.color}
-                        strokeWidth="4"
-                        strokeDasharray="12,8"
-                        opacity="0.85"
+                        strokeWidth="5"
+                        strokeDasharray="15,10"
+                        opacity={selectedTeam === null || selectedTeam === team.id ? "0.95" : "0.3"}
                         markerEnd={`url(#arrow-${team.id})`}
+                        className="transition-opacity duration-300"
                       >
                         <animate 
                           attributeName="stroke-dashoffset" 
                           from="0" 
-                          to="20" 
-                          dur="1.2s" 
+                          to="25" 
+                          dur="1.5s" 
                           repeatCount="indefinite"
                         />
                       </line>
+                      
+                      {/* Highlight line for selected team */}
+                      {selectedTeam === team.id && (
+                        <line
+                          x1={currentFort.x}
+                          y1={currentFort.y}
+                          x2={nextFort.x}
+                          y2={nextFort.y}
+                          stroke={team.color}
+                          strokeWidth="2"
+                          opacity="1"
+                          strokeDasharray="none"
+                        />
+                      )}
                     </g>
                   );
                 })}
@@ -155,7 +171,7 @@ export default function AllPathsMap({ teams, fortLocations }) {
                     }}
                   >
                     <div
-                      className="w-8 h-8 rounded-full flex items-center justify-center text-white font-bold text-xs border-2 border-white flex-shrink-0"
+                      className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 lg:w-8 lg:h-8 rounded-full flex items-center justify-center text-white font-bold text-[10px] sm:text-xs border sm:border md:border-2 border-white flex-shrink-0"
                       style={{ 
                         backgroundColor: team.color,
                         boxShadow: `0 0 12px ${team.color}, inset 0 0 4px rgba(0,0,0,0.3)`
@@ -169,56 +185,102 @@ export default function AllPathsMap({ teams, fortLocations }) {
             })
           )}
 
-          {/* Legend overlay */}
-          <div className="absolute bottom-4 left-4 bg-black bg-opacity-80 rounded-lg p-3 pointer-events-auto z-30 max-w-xs">
-            <p className="text-white text-xs font-bold mb-2">📍 Teams on Map:</p>
-            <div className="flex flex-wrap gap-2">
-              {activeteams.slice(0, 3).map((team) => (
-                <div
-                  key={team.id}
-                  className="flex items-center gap-2 text-xs text-white bg-gray-800 px-2 py-1 rounded cursor-pointer hover:bg-gray-700 transition-colors"
-                  onClick={() => setSelectedTeam(selectedTeam === team.id ? null : team.id)}
-                  style={{
-                    borderLeft: `3px solid ${team.color}`
-                  }}
-                >
-                  <div
-                    className="w-3 h-3 rounded-full"
-                    style={{ backgroundColor: team.color }}
-                  ></div>
-                  <span className="font-semibold">{team.name}</span>
-                </div>
-              ))}
-            </div>
-          </div>
         </div>
       </div>
 
-      {/* Team Filter Controls */}
-      <div className="mt-6 bg-gray-800 rounded-lg p-4 border border-gray-700">
-        <div className="flex items-center justify-between mb-4">
-          <h3 className="text-lg font-bold text-white">🎯 Filter Teams</h3>
+      {/* Team Filter Controls - Professional Design */}
+      <div className="mt-3 sm:mt-4">
+        <div className="flex items-center justify-between mb-3 sm:mb-4">
+          <div className="flex items-center gap-2 sm:gap-3">
+            <div className="h-px flex-1 bg-gradient-to-r from-transparent via-slate-600/50 to-transparent hidden sm:block"></div>
+            <h3 className="text-sm sm:text-base md:text-lg font-bold text-white whitespace-nowrap">Filter Teams</h3>
+            <div className="h-px flex-1 bg-gradient-to-r from-transparent via-slate-600/50 to-transparent hidden sm:block"></div>
+          </div>
           {selectedTeam && (
             <button
               onClick={() => setSelectedTeam(null)}
-              className="text-sm text-blue-400 hover:text-blue-300 font-semibold transition-colors"
+              className="text-xs sm:text-sm text-blue-400 hover:text-blue-300 font-semibold transition-colors px-3 py-1.5 rounded-lg hover:bg-blue-400/10 border border-blue-400/20"
             >
-              Show All
+              Clear Filter
             </button>
           )}
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+        {/* Mobile: Horizontal Scrollable Pills */}
+        <div className="md:hidden overflow-x-auto pb-2 -mx-1 px-1 scrollbar-hide">
+          <div className="flex gap-2 min-w-max">
+            <button
+              onClick={() => setSelectedTeam(null)}
+              className={`flex items-center gap-2 px-4 py-2.5 rounded-full border-2 transition-all duration-200 whitespace-nowrap flex-shrink-0 ${
+                selectedTeam === null
+                  ? 'bg-slate-700 border-blue-500/50 shadow-lg'
+                  : 'bg-slate-800/60 border-slate-600/50 hover:bg-slate-700/60'
+              }`}
+            >
+              <span className="text-white font-semibold text-xs">All Teams</span>
+            </button>
+            {activeteams.map((team) => (
+              <button
+                key={team.id}
+                onClick={() => setSelectedTeam(selectedTeam === team.id ? null : team.id)}
+                className={`flex items-center gap-2 px-4 py-2.5 rounded-full border-2 transition-all duration-200 whitespace-nowrap flex-shrink-0 ${
+                  selectedTeam === team.id
+                    ? 'bg-slate-700 shadow-lg scale-105'
+                    : selectedTeam === null
+                    ? 'bg-slate-800/60 hover:bg-slate-700/60'
+                    : 'bg-slate-900/40 opacity-60'
+                }`}
+                style={{
+                  borderColor: selectedTeam === team.id ? team.color : team.color + '40'
+                }}
+              >
+                <div
+                  className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0"
+                  style={{ 
+                    backgroundColor: team.color,
+                    boxShadow: selectedTeam === team.id ? `0 0 12px ${team.color}` : 'none'
+                  }}
+                >
+                  <TeamIcon team={team} size={16} className="text-white" />
+                </div>
+                <span className="text-white font-semibold text-xs">{team.name}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Desktop: Professional Grid Layout */}
+        <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-3">
+          <button
+            onClick={() => setSelectedTeam(null)}
+            className={`p-4 rounded-xl border-2 transition-all duration-200 text-left group ${
+              selectedTeam === null
+                ? 'bg-slate-700/80 border-blue-500/50 shadow-lg'
+                : 'bg-slate-800/60 border-slate-600/50 hover:bg-slate-700/60'
+            }`}
+          >
+            <div className="flex items-center gap-3">
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500/20 to-purple-500/20 flex items-center justify-center border border-blue-500/30">
+                <svg className="w-6 h-6 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+                </svg>
+              </div>
+              <div>
+                <p className="text-white font-bold text-sm">All Teams</p>
+                <p className="text-muted text-xs">View all paths</p>
+              </div>
+            </div>
+          </button>
           {activeteams.map((team) => (
             <button
               key={team.id}
               onClick={() => setSelectedTeam(selectedTeam === team.id ? null : team.id)}
-              className={`p-4 rounded-lg border-2 transition-all duration-200 text-left ${
+              className={`p-4 rounded-xl border-2 transition-all duration-200 text-left group ${
                 selectedTeam === team.id
-                  ? 'bg-gray-700 shadow-lg'
+                  ? 'bg-slate-700/80 shadow-lg border-opacity-100'
                   : selectedTeam === null
-                  ? 'bg-gray-700 hover:bg-gray-600'
-                  : 'bg-gray-900 opacity-50'
+                  ? 'bg-slate-800/60 border-opacity-50 hover:bg-slate-700/60'
+                  : 'bg-slate-900/40 opacity-50 border-opacity-30'
               }`}
               style={{
                 borderColor: selectedTeam === team.id ? team.color : team.color + '40'
@@ -226,18 +288,25 @@ export default function AllPathsMap({ teams, fortLocations }) {
             >
               <div className="flex items-center gap-3">
                 <div
-                  className="w-10 h-10 rounded-full flex-shrink-0"
+                  className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 transition-transform group-hover:scale-110"
                   style={{ 
                     backgroundColor: team.color,
-                    boxShadow: selectedTeam === team.id ? `0 0 15px ${team.color}` : 'none'
+                    boxShadow: selectedTeam === team.id ? `0 0 20px ${team.color}50` : 'none'
                   }}
-                />
-                <div>
-                  <p className="text-white font-bold text-sm">{team.name}</p>
-                  <p className="text-gray-400 text-xs">
-                    {team.path.length} forts • {team.members.length} members
+                >
+                  <TeamIcon team={team} size={28} className="text-white" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-white font-bold text-sm truncate">{team.name}</p>
+                  <p className="text-muted text-xs">
+                    {team.path.length} objectives • {team.members.length} members
                   </p>
                 </div>
+                {selectedTeam === team.id && (
+                  <svg className="w-5 h-5 text-blue-400 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                  </svg>
+                )}
               </div>
             </button>
           ))}
@@ -246,32 +315,34 @@ export default function AllPathsMap({ teams, fortLocations }) {
 
       {/* Team Details */}
       {selectedTeam && (
-        <div className="mt-6 bg-gray-800 rounded-lg p-6 border border-gray-700">
+        <div className="mt-4 card p-4 md:p-6">
           {(() => {
             const team = activeteams.find(t => t.id === selectedTeam);
             if (!team) return null;
 
             return (
               <div>
-                <div className="flex items-center gap-4 mb-6">
+                <div className="flex items-center gap-3 mb-4">
                   <div
-                    className="w-16 h-16 rounded-full"
+                    className="w-12 h-12 md:w-14 md:h-14 rounded-full flex-shrink-0 flex items-center justify-center"
                     style={{ 
                       backgroundColor: team.color,
                       boxShadow: `0 0 20px ${team.color}`
                     }}
-                  />
+                  >
+                    <TeamIcon team={team} size={28} className="text-white" />
+                  </div>
                   <div>
-                    <h2 className="text-2xl font-bold text-white">{team.name}</h2>
-                    <p className="text-gray-400">
+                    <h2 className="text-xl md:text-2xl font-bold text-white">{team.name}</h2>
+                    <p className="text-muted text-sm">
                       {team.members.length} members • {team.path.length} objectives
                     </p>
                   </div>
                 </div>
 
                 {/* Path Chain */}
-                <div className="mb-6">
-                  <p className="text-gray-400 text-sm font-semibold mb-3">📍 Path Chain:</p>
+                <div className="mb-4">
+                  <p className="text-muted text-xs md:text-sm font-semibold mb-2 uppercase tracking-wider">Path Chain</p>
                   <div className="flex flex-wrap gap-2">
                     {team.path.map((step, idx) => (
                       <div
@@ -279,7 +350,7 @@ export default function AllPathsMap({ teams, fortLocations }) {
                         className="flex items-center gap-2"
                       >
                         <div
-                          className="w-8 h-8 rounded-full flex items-center justify-center text-white text-xs font-bold"
+                          className="team-indicator w-8 h-8 text-white text-xs font-bold"
                           style={{ backgroundColor: team.color }}
                         >
                           {step.order}
@@ -288,7 +359,7 @@ export default function AllPathsMap({ teams, fortLocations }) {
                           {step.fort}
                         </span>
                         {idx < team.path.length - 1 && (
-                          <span className="text-gray-500 font-bold">→</span>
+                          <span className="text-subtle font-bold">→</span>
                         )}
                       </div>
                     ))}
@@ -298,17 +369,17 @@ export default function AllPathsMap({ teams, fortLocations }) {
                 {/* Instructions */}
                 {team.instructions.length > 0 && (
                   <div>
-                    <p className="text-gray-400 text-sm font-semibold mb-3">⚔️ Strategy:</p>
-                    <div className="space-y-2">
+                    <p className="text-muted text-xs md:text-sm font-semibold mb-2 uppercase tracking-wider">Strategy</p>
+                    <div className="space-y-1.5">
                       {team.instructions.map((instruction, idx) => (
-                        <div key={idx} className="flex items-start gap-3">
+                        <div key={idx} className="flex items-start gap-2">
                           <span 
-                            className="flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-white text-xs font-bold mt-0.5"
+                            className="flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-white text-xs font-bold mt-0.5"
                             style={{ backgroundColor: team.color }}
                           >
                             {idx + 1}
                           </span>
-                          <p className="text-gray-300 text-sm">{instruction}</p>
+                          <p className="text-body text-xs md:text-sm">{instruction}</p>
                         </div>
                       ))}
                     </div>
@@ -321,7 +392,7 @@ export default function AllPathsMap({ teams, fortLocations }) {
       )}
 
       {/* Info text */}
-      <p className="text-gray-400 text-sm mt-4 text-center font-medium">
+      <p className="text-muted text-xs md:text-sm mt-3 text-center font-medium">
         💡 Click on team filters below to highlight individual paths. All paths are shown with animated lines and direction arrows.
       </p>
     </div>
