@@ -14,7 +14,9 @@ export const viewport = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body className="crt antialiased min-h-screen bg-animated-gradient text-slate-100">
+        {children}
+      </body>
     </html>
   )
 }

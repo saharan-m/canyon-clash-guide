@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600;700&family=Russo+One&display=swap');
 @import "tailwindcss";
 
 @tailwind base;
@@ -7,12 +8,15 @@
 /* Design System Variables */
 :root {
   /* Enhanced Color Palette */
-  --color-bg-primary: #0a0e1a;
+  --color-primary: #7C3AED;
+  --color-secondary: #A78BFA;
+  --color-cta: #F43F5E;
+  --color-bg-primary: #0F0F23;
   --color-bg-secondary: #1a1f2e;
   --color-bg-tertiary: #252b3a;
   --color-surface: #1e293b;
   --color-surface-elevated: #2d3748;
-  --color-text-primary: #ffffff;
+  --color-text-primary: #E2E8F0;
   --color-text-secondary: #e2e8f0;
   --color-text-tertiary: #94a3b8;
   --color-text-muted: #64748b;
@@ -86,8 +90,9 @@
   }
 
   body {
-    @apply bg-slate-950 text-slate-100 antialiased;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    font-family: 'Chakra Petch', 'Russo One', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    background: var(--color-bg-primary);
+    color: var(--color-text-primary);
     margin: 0;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -362,10 +367,10 @@
   /* Enhanced Button Components - Mobile Optimized */
   .btn-primary {
     @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-semibold text-white;
-    background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #ec4899 100%);
-    background-size: 200% 200%;
-    box-shadow: var(--shadow-md), 0 0 20px rgba(59, 130, 246, 0.3);
-    transition: all var(--transition-base);
+    background: linear-gradient(90deg, var(--color-primary), var(--color-cta));
+    box-shadow: 0 0 16px var(--color-primary), 0 0 32px var(--color-cta);
+    cursor: pointer;
+    transition: background 0.2s, box-shadow 0.2s, transform 0.2s;
     position: relative;
     overflow: hidden;
     min-height: 44px; /* Better touch target for mobile */
@@ -384,9 +389,9 @@
   }
   
   .btn-primary:hover {
-    background-position: 100% 0;
-    box-shadow: var(--shadow-xl), 0 0 30px rgba(59, 130, 246, 0.5);
-    transform: translateY(-2px) scale(1.02);
+    background: linear-gradient(90deg, var(--color-cta), var(--color-primary));
+    box-shadow: 0 0 32px var(--color-cta), 0 0 48px var(--color-primary);
+    transform: scale(1.03);
   }
   
   .btn-primary:hover::before {
@@ -483,51 +488,121 @@
   
   /* Enhanced Gradient Text */
   .gradient-text {
-    background: linear-gradient(135deg, #60a5fa 0%, #a78bfa 25%, #f472b6 50%, #ec4899 75%, #8b5cf6 100%);
+    background: linear-gradient(90deg, #7C3AED 0%, #A78BFA 40%, #F43F5E 80%, #E2E8F0 100%);
     background-size: 200% 200%;
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
-    animation: gradient-shift 3s ease infinite;
-    filter: drop-shadow(0 2px 4px rgba(59, 130, 246, 0.3));
-    display: inline-block;
     color: transparent;
+    text-shadow: 0 0 8px #7C3AED, 0 0 16px #F43F5E, 0 1px 2px #0F0F23;
+    filter: drop-shadow(0 2px 8px #7C3AED88);
+    display: inline-block;
+    position: relative;
   }
   
-  /* Light Mode - Gradient Text - Fixed and Enhanced */
+  /* Fallback for browsers that don't support background-clip:text */
+  .gradient-text:after {
+    content: attr(data-text);
+    position: absolute;
+    left: 0; top: 0; width: 100%; height: 100%;
+    color: #E2E8F0;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.7;
+  }
+
+  .heading-2, .heading-3 {
+    color: #E2E8F0;
+    text-shadow: 0 0 8px #7C3AED, 0 1px 2px #0F0F23;
+    font-family: 'Russo One', 'Chakra Petch', sans-serif;
+    letter-spacing: 0.01em;
+  }
+
   html.light-mode .gradient-text {
-    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 25%, #ec4899 50%, #f472b6 75%, #a78bfa 100%) !important;
-    background-size: 200% 200% !important;
-    -webkit-background-clip: text !important;
-    background-clip: text !important;
-    -webkit-text-fill-color: transparent !important;
-    color: transparent !important;
-    filter: drop-shadow(0 2px 4px rgba(99, 102, 241, 0.4)) drop-shadow(0 1px 2px rgba(99, 102, 241, 0.2)) !important;
-    animation: gradient-shift 3s ease infinite !important;
-    display: inline-block !important;
-    position: relative !important;
+    background: linear-gradient(90deg, #6366f1 0%, #8b5cf6 40%, #ec4899 80%, #0f172a 100%) !important;
+    filter: drop-shadow(0 2px 4px #6366f1aa);
+    text-shadow: 0 1px 2px #fff;
+  }
+
+  html.light-mode .heading-2, html.light-mode .heading-3 {
+    color: #1e293b;
+    text-shadow: 0 2px 10px #fff, 0 1px 3px #0001;
   }
   
-  /* Ensure gradient-text inside headings works properly */
-  html.light-mode .heading-1 .gradient-text,
-  html.light-mode .heading-2 .gradient-text,
-  html.light-mode .heading-3 .gradient-text {
-    color: transparent !important;
-    -webkit-text-fill-color: transparent !important;
-    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 25%, #ec4899 50%, #f472b6 75%, #a78bfa 100%) !important;
-    background-size: 200% 200% !important;
-    -webkit-background-clip: text !important;
-    background-clip: text !important;
-    filter: drop-shadow(0 2px 4px rgba(99, 102, 241, 0.4)) drop-shadow(0 1px 2px rgba(99, 102, 241, 0.2)) !important;
+  /* Light Mode - Headings */
+  html.light-mode .heading-1:not(.gradient-text),
+  html.light-mode .heading-2:not(.gradient-text),
+  html.light-mode .heading-3:not(.gradient-text) {
+    color: #1e293b !important;
+    text-shadow: 0 2px 10px rgba(255, 255, 255, 0.8), 0 1px 3px rgba(0, 0, 0, 0.1);
   }
   
-  @keyframes gradient-shift {
-    0%, 100% {
-      background-position: 0% 50%;
-    }
-    50% {
-      background-position: 100% 50%;
-    }
+  /* Ensure gradient-text inside heading-1 works in light mode */
+  html.light-mode .heading-1 .gradient-text {
+    color: transparent !important;
+    -webkit-text-fill-color: transparent !important;
+  }
+  
+  .text-body {
+    @apply text-slate-200 leading-relaxed;
+    font-size: 1rem;
+    line-height: 1.7;
+    color: #e2e8f0;
+  }
+  
+  .text-muted {
+    @apply text-slate-400;
+    font-size: 0.9375rem;
+    color: #94a3b8;
+  }
+  
+  .text-subtle {
+    @apply text-slate-500;
+    font-size: 0.875rem;
+    color: #64748b;
+  }
+  
+  /* Enhanced Gradient Text */
+  .gradient-text {
+    background: linear-gradient(90deg, #7C3AED 0%, #A78BFA 40%, #F43F5E 80%, #E2E8F0 100%);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    text-shadow: 0 0 8px #7C3AED, 0 0 16px #F43F5E, 0 1px 2px #0F0F23;
+    filter: drop-shadow(0 2px 8px #7C3AED88);
+    display: inline-block;
+    position: relative;
+  }
+  
+  /* Fallback for browsers that don't support background-clip:text */
+  .gradient-text:after {
+    content: attr(data-text);
+    position: absolute;
+    left: 0; top: 0; width: 100%; height: 100%;
+    color: #E2E8F0;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.7;
+  }
+
+  .heading-2, .heading-3 {
+    color: #E2E8F0;
+    text-shadow: 0 0 8px #7C3AED, 0 1px 2px #0F0F23;
+    font-family: 'Russo One', 'Chakra Petch', sans-serif;
+    letter-spacing: 0.01em;
+  }
+
+  html.light-mode .gradient-text {
+    background: linear-gradient(90deg, #6366f1 0%, #8b5cf6 40%, #ec4899 80%, #0f172a 100%) !important;
+    filter: drop-shadow(0 2px 4px #6366f1aa);
+    text-shadow: 0 1px 2px #fff;
+  }
+
+  html.light-mode .heading-2, html.light-mode .heading-3 {
+    color: #1e293b;
+    text-shadow: 0 2px 10px #fff, 0 1px 3px #0001;
   }
   
   /* Section Spacing - Ultra Compact Mobile */
@@ -1494,5 +1569,35 @@
   html.light-mode textarea:focus,
   html.light-mode select:focus {
     @apply border-blue-500 ring-blue-500;
+  }
+}
+
+/* CRT Scanline Effect */
+.crt {
+  position: relative;
+}
+.crt::before {
+  content: '';
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255,255,255,0.04) 0px,
+    rgba(255,255,255,0.04) 1px,
+    transparent 1.5px,
+    transparent 4px
+  );
+  mix-blend-mode: screen;
+  opacity: 0.5;
+}
+
+/* Prefers Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition: none !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
   }
 }
