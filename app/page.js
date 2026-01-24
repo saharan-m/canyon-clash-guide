@@ -119,7 +119,7 @@ export default function Home() {
             </div>
             <h1 className="heading-1 mb-2 sm:mb-3 md:mb-4 leading-tight px-1 font-display">
               <span className="block">Canyon Clash</span>
-              <span className="gradient-text block">Battle Guide</span>
+              <span className="block">Battle Guide</span>
             </h1>
             <p className="text-sm sm:text-base md:text-lg lg:text-xl text-body mb-1 sm:mb-2 max-w-2xl mx-auto px-1 font-medium">
               Strategize with your team, visualize all paths, and dominate the battlefield
